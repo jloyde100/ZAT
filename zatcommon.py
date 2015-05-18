@@ -179,7 +179,32 @@ def getServerStatus():
     return results;
 
 
-<<<<<<< HEAD
-=======
+#====================================
+# Stop a server given as parameter
+#====================================
 
->>>>>>> 811c706919bfa1f2b2747e623c8b832b8cc02f59
+def stopSvr(svr):
+  try:
+     wl.state(svr)
+     wl.shutdown(svr, 'Server',force='true',block='false')
+     wl.state(svr)
+  except wl.WLSTException, we:
+     wl.dumpStack()
+  except Exception, e:
+     print svr+': Error in shutting down -'+str(e)
+     pass
+
+#====================================
+# Start a server given as parameter
+#====================================
+
+def startSvr(svr):
+  try:
+     wl.state(svr)
+     wl.start(svr, 'Server',block='false')
+     wl.state(svr)
+  except Exception, e:
+     print svr+': Error in startup up -'+str(e)
+     pass
+
+
