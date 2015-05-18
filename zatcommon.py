@@ -165,13 +165,13 @@ def getServerStatus():
                 results.append(linestring);
             elif serverState == "STARTING":
                 startingSvrCnt=startingSvrCnt+1;
-                results.append(',' + name.getName() + ',\033[1;33m' + serverState + '\033[0m,,,,');
+                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;33m' + serverState + '\033[0m,,,,,');
             elif serverState == "SHUTDOWN":
                 otherSvrCnt=otherSvrCnt+1;
-                results.append(',' + name.getName() + ',\033[1;31m' + serverState + '\033[0m,,,,');
+                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;31m' + serverState + '\033[0m,,,,,');
             else:
                 stoppedSvrCnt=stoppedSvrCnt+1
-                results.append(',' + name.getName() + ',\033[1;34m' + serverState + '\033[0m,,,,');
+                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;34m' + serverState + '\033[0m,,,,,');
             wl.cd('../..')
         except:
             pass;
