@@ -2,7 +2,7 @@ import os
 import sys
 
 def mainMenu():
-    os.system('clear')   
+    #os.system('clear')   
     print '1) Server status'
     print '2) Start server'
     print '3) Stop server'

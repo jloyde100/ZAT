@@ -48,7 +48,7 @@ def connectServers(domainHome):
         port=domInfo.get(srvr.strip(),'serverport');
         machine=domInfo.get(srvr.strip(),'machine');
         print 'Connecting to t3://'+machine+':'+port
-        connect('username','password','t3://'+machine+':'+port);
+        connect('','','t3://'+machine+':'+port);
         serverRuntime();
         checkLimits(domainHome);
         disconnect()
