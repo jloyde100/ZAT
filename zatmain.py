@@ -1,4 +1,7 @@
 import os
+import zatcommon
+
+zatcommon.getInfo()
 
 loadProperties("zatconfig")
 
@@ -16,19 +19,33 @@ else:
    storeUserConfig("./configfile.secure","./keyfile.secure")
 
 import zatmenu
-import zatcommon
 
 command=zatmenu.mainMenu()
 while command!='0':
    if command=='1':
       statusLines=zatcommon.getServerStatus()
-      print 'Date,Time,Server,Status,Started Date,Started Time,Heap Free,Heap Max,%HeapUsed'
+      columns='Date,Time,Server,Status,Health,Started Date,Time,Heap Free,Heap Max,%HeapUsed'
+      heading=''
+      for col in columns.split(','):
+          heading=heading+col.ljust(15)
+      #print 'Column Length - '+str(len(columns.split(',')))
+
+      print heading
       for status in statusLines:
-          print status 
+          statusline=''
+          #print 'Status Length - '+str(len(status.split(',')))
+          for statcol in status.split(','):
+              statusline=statusline+statcol.ljust(15)
+          print statusline
+ 
    elif command=='2':
-      print 'Enter the server name to restart:'
+      print 'Enter the server name to start:'
       svrname = sys.stdin.readline();
       zatcommon.startSvr(svrname.strip());
+   elif command=='3':
+      print 'Enter the server name to stop:'
+      svrname = sys.stdin.readline();
+      zatcommon.stopSvr(svrname.strip());
 
    command=zatmenu.mainMenu()
 

@@ -165,13 +165,13 @@ def getServerStatus():
                 results.append(linestring);
             elif serverState == "STARTING":
                 startingSvrCnt=startingSvrCnt+1;
-                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;33m' + serverState + '\033[0m,,,,,');
+                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;33m' + serverState + '\033[0m,,,,,,');
             elif serverState == "SHUTDOWN":
                 otherSvrCnt=otherSvrCnt+1;
-                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;31m' + serverState + '\033[0m,,,,,');
+                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;31m' + serverState + '\033[0m,,,,,,');
             else:
                 stoppedSvrCnt=stoppedSvrCnt+1
-                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;34m' + serverState + '\033[0m,,,,,');
+                results.append(str(datetime.datetime.now().strftime('%Y-%m-%d,%H:%M:%S'))+',' + name.getName() + ',\033[1;34m' + serverState + '\033[0m,,,,,,');
             wl.cd('../..')
         except:
             pass;
@@ -208,3 +208,22 @@ def startSvr(svr):
      pass
 
 
+#===================================
+# Get environment information
+#===================================
+
+def getInfo():
+    from xml.dom import minidom
+    wlLoc=os.getenv('WL_HOME')
+    xmldoc = minidom.parse(wlLoc+'/../domain-registry.xml')
+    itemlist = xmldoc.getElementsByTagName('domain')
+    if os.path.exists('./zatconfig'): 
+       print 'Config file already exists'
+    else:
+       f=open('./zatconfig','a')
+       print >>f,'adminURL=t3://localhost:7001'
+       if len(itemlist)>1:
+          print 'More than one domain found'
+       for s in itemlist:
+           print >>f,'domainPath='+(s.attributes['location'].value)
+       f.close()
